@@ -1,8 +1,8 @@
-const Joi = require('joi-oid');
+const Joi = require('joi');
 module.exports = async (req,res,next) =>{
   try {
     const validation = Joi.object({
-      car_id: Joi.objectId()
+      car_id: Joi.string().min(24).max(24)
     });
     const {error} = await validation.validate(req.params,{abortEarl:true});
     if(error) throw error;
@@ -12,7 +12,7 @@ module.exports = async (req,res,next) =>{
       'message': 'bad request',
       'details':[
         {
-          'message':error.message,
+          'message':'The id must be Type of ObjectId',
         }
       ]
     });
