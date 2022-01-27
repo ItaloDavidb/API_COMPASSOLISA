@@ -15,69 +15,72 @@ class CarService{
     const data = await CarRepository.update(id, payload);
     return data;
   }
-  async find(modelo,cor,ano,acessorios,quantidadePassageiros){
+ 
+  async find(cor,modelo,ano,acessorios,quantidadePassageiros){
     let data = {};
-    if(typeof modelo === 'undefined' && cor === 'undefined' && 
-    ano === 'undefined' && acessorios === 'undefined' && 
-    quantidadePassageiros === undefined ){
+    if(typeof cor === 'undefined' && 
+    typeof modelo === 'undefined' &&
+    typeof ano === 'undefined' &&
+    typeof acessorios === 'undefined' &&
+    typeof quantidadePassageiros === 'undefined'
+    ){
       data = await CarRepository.findAll();
-    }
-    else{
-      const Objmodelo = this.validatemodelo(modelo);
-      const Objcor = this.validatecor(cor);
-      const Objano = this.validateano(ano);
-      const Objacessorios = this.validateacessorios(acessorios);
-      const ObjPassageiros = this.validatePassageiros(quantidadePassageiros);
-      const obj = Object.assign({},Objmodelo,Objcor,Objano,Objacessorios,ObjPassageiros);
+    }else{
+      const objcor = this.validatecor(cor);
+      const objmodelo = this.validatemodelo(modelo);
+      const objano = this.validateano(ano);
+      const objacessorios = this.validateacessorios(acessorios);
+      const objquantidadP = this.validatepassageiros(quantidadePassageiros);
+      const obj = Object.assign({},objcor,objmodelo,objano,objacessorios, objquantidadP);
       data = await CarRepository.find(obj);
     }
     return data;
-    
+  }
+  validatecor(cor){
+    if(typeof cor === 'undefined'){
+      const objcor = {};
+      return objcor;
+    }else{
+      const objcor2 = {cor:cor};
+      return objcor2;
+    }
+  }
+  validatemodelo(modelo){
+    if(typeof modelo === 'undefined'){
+      const objmodelo = {};
+      return objmodelo;
+    }else{
+      const objmodelo2 = {modelo:modelo};
+      return objmodelo2;
+    }
+  }
+  validateano(ano){
+    if(typeof ano === 'undefined'){
+      const objano = {};
+      return objano;
+    }else{
+      const objano2 = {ano:ano};
+      return objano2;
+    }
+  }
+  validateacessorios(acessorios){
+    if(typeof acessorios === 'undefined'){
+      const objacessorios = {};
+      return objacessorios;
+    }else{
+      const objacessorios2 = {acessorios:acessorios.descricao};
+      return objacessorios2;
+    }
   } 
-  validatemodelo(modelo) {
-    if (typeof modelo === 'undefined') {
-      const ObjName = {};
-      return ObjName;
-    } else {
-      const ObjName2 = { name: { $regex: '.*' + modelo + '.*' } };
-      return ObjName2;
+  validatepassageiros(passageiros){
+    if(typeof passageiros === 'undefined'){
+      const objpassageiros = {};
+      return objpassageiros;
+    }else{
+      const objpassageiros2 = {passageiros:passageiros};
+      return objpassageiros2;
     }
-  }
-  validatecor(cor) {
-    if (typeof cor === 'undefined') {
-      const ObjName = {};
-      return ObjName;
-    } else {
-      const ObjName2 = { name: { $regex: '.*' + cor + '.*' } };
-      return ObjName2;
-    }
-  }
-  validateano(ano) {
-    if (typeof ano === 'undefined') {
-      const ObjName = {};
-      return ObjName;
-    } else {
-      const ObjName2 = { name: { $regex: '.*' + ano + '.*' } };
-      return ObjName2;
-    }
-  }
-  validateacessorios(acessorios) {
-    if (typeof acessorios === 'undefined') {
-      const ObjName = {};
-      return ObjName;
-    } else {
-      const ObjName2 = { name: { $regex: '.*' + acessorios + '.*' } };
-      return ObjName2;
-    }
-  }
-  validatePassageiros(quantidadePassageiros) {
-    if (typeof quantidadePassageiros === 'undefined') {
-      const ObjName = {};
-      return ObjName;
-    } else {
-      const ObjName2 = { name: { $regex: '.*' + quantidadePassageiros + '.*' } };
-      return ObjName2;
-    }
-  }
+  } 
+  
 }
 module.exports = new CarService;
