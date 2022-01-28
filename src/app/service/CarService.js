@@ -8,6 +8,10 @@ class CarService{
   async findId(id) {
     return CarRepository.findId(id);
   }
+  async findIdP(id) {
+    return CarRepository.findIdP(id);
+  }
+  
   async delete(id) {
     return CarRepository.delete(id);
   }
@@ -68,7 +72,7 @@ class CarService{
       const objacessorios = {};
       return objacessorios;
     }else{
-      const objacessorios2 = {acessorios:acessorios.descricao};
+      const objacessorios2 = {acessorios:acessorios};
       return objacessorios2;
     }
   } 

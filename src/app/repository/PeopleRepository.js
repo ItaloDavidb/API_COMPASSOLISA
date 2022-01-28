@@ -5,16 +5,19 @@ class PeopleRepository {
     return PeopleSchema.create(payload);
   }
   async find(payload){
-    return PeopleSchema.paginate(payload,' -__v');
+    return PeopleSchema.paginate(payload);
   }
   async delete(id) {
     return PeopleSchema.deleteOne({ _id: id });
   }
-
   async findId(id) {
     return PeopleSchema.paginate({ _id: id });
   }
+  async findIdP(id) {
+    return PeopleSchema.findOne({ _id: id });
+  }
   async findAll(){
+    
     return PeopleSchema.paginate();
   }
   async update(id, payload) {

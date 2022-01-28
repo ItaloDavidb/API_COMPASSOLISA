@@ -82,7 +82,7 @@ class CarController{
   async delete(req,res){
     const id = req.params.car_id;
     try {
-      const Car = await CarService.findId(id);
+      const Car = await CarService.findIdP(id);
       if(Car === null){
         res.status(404).json({
           'message': 'bad request',
@@ -111,7 +111,7 @@ class CarController{
     const id = req.params.car_id;
     const newData = req.body;
     try {
-      const Car = await CarService.findId(id);
+      const Car = await CarService.findIdP(id);
       if(Car === null){
         res.status(404).json({
           'message': 'bad request',
@@ -122,8 +122,8 @@ class CarController{
           ]
         });
       }
-      const updatedEmployee = await CarService.update(id, newData);
-      res.status(200).json(updatedEmployee);
+      const updatedCar = await CarService.update(id, newData);
+      res.status(200).json(updatedCar);
     } catch (error) {
       return res.status(400).json({
         'message': 'bad request',

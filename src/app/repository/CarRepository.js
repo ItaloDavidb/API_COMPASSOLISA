@@ -15,6 +15,9 @@ class CarRepository {
   async findId(id) {
     return CarSchema.paginate({ _id: id });
   }
+  async findIdP(id) {
+    return CarSchema.findOne({ _id: id });
+  }
   async findAll(){
     return CarSchema.paginate();
   }
