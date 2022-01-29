@@ -1,4 +1,3 @@
-
 const CarSchema = require('../schema/CarSchema');
 
 class CarRepository {
@@ -6,20 +5,31 @@ class CarRepository {
     return CarSchema.create(payload);
   }
   async find(payload){
-    return CarSchema.paginate(payload,' -__v');
+    const myCustomLabels = {
+      totalDocs: 'total',
+      docs: 'Veiculos',
+      page: 'offset',
+      nextPage: false,
+      prevPage: false,
+      totalPages: 'offsets',
+      pagingCounter: false,
+      meta: false,
+      hasPrevPage: false,
+      hasNextPage: false
+    };
+    const options = {
+      page: 1,
+      limit: 100,
+      customLabels: myCustomLabels
+    };
+    return CarSchema.paginate(payload,options,{});
   }
   async delete(id) {
     return CarSchema.deleteOne({ _id: id });
   }
 
   async findId(id) {
-    return CarSchema.paginate({ _id: id });
-  }
-  async findIdP(id) {
     return CarSchema.findOne({ _id: id });
-  }
-  async findAll(){
-    return CarSchema.paginate();
   }
   async update(id, payload) {
     await CarSchema.updateOne({ car_id: id }, payload);

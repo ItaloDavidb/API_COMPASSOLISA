@@ -1,4 +1,5 @@
-function isValidCPF(cpf) {
+
+function isValidCpf(cpf) {
   if (typeof cpf !== 'string') return false;
   cpf = cpf.replace(/[\s.-]*/igm, '');
   if (
@@ -33,4 +34,14 @@ function isValidCPF(cpf) {
   if (resto != parseInt(cpf.substring(10, 11) ) ) return false;
   return true;
 }
-module.exports = isValidCPF;
+function isOver18(dateOfBirth) {
+  // find the date 18 years ago
+  const date18YrsAgo = new Date();
+  date18YrsAgo.setFullYear(date18YrsAgo.getFullYear() - 18);
+  // check if the date of birth is before that date
+  return dateOfBirth <= date18YrsAgo;
+}
+module.exports = {
+  isValidCpf:isValidCpf,
+  isOver18:isOver18
+};

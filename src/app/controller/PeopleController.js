@@ -59,7 +59,8 @@ class PeopleController{
   async delete(req,res){
     const id = req.params.people_id;
     try {
-      const people = await PeopleService.findIdP(id);
+      const people = await PeopleService.findId(id);
+      console.log(people);
       if(people === null){
         res.status(404).json({
           'message': 'bad request',
@@ -88,7 +89,7 @@ class PeopleController{
     const id = req.params.people_id;
     const newData = req.body;
     try {
-      const people = await PeopleService.findIdP(id);
+      const people = await PeopleService.findId(id);
       if(people === null){
         res.status(404).json({
           'message': 'bad request',
@@ -114,16 +115,9 @@ class PeopleController{
   }
   async find(req,res){
     try {
-      const nome1 = req.query.nome;
-      const cpf1 = req.query.cpf;
-      const data_nascimento1 = req.query.data_nascimento;
-      const email1 = req.query.email;
-      const habilitado1 = req.query.habilitado;
-      const data = await PeopleService.find(nome1,cpf1,data_nascimento1,email1,habilitado1);
-      return res.status(200).json({
-        'veiculos':data
-        
-      });
+      const {nome,cpf,data_nascimento,email,habilitado} = req.query;
+      const data = await PeopleService.find(nome,cpf,data_nascimento,email,habilitado);
+      return res.status(200).json(data);
       
     } catch (error) {
       return res.status(400).json({

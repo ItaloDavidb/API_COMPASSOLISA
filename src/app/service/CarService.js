@@ -6,10 +6,9 @@ class CarService{
     return data;
   }   
   async findId(id) {
-    return CarRepository.findId(id);
-  }
-  async findIdP(id) {
-    return CarRepository.findIdP(id);
+    const data =  CarRepository.findId(id);
+    if(typeof data === 'undefined') ()=> {throw new Error('Id not Found');};
+    return data;
   }
   
   async delete(id) {
@@ -28,63 +27,27 @@ class CarService{
     typeof acessorios === 'undefined' &&
     typeof quantidadePassageiros === 'undefined'
     ){
-      data = await CarRepository.findAll();
+      data = await CarRepository.find();
     }else{
-      const objcor = this.validatecor(cor);
-      const objmodelo = this.validatemodelo(modelo);
-      const objano = this.validateano(ano);
-      const objacessorios = this.validateacessorios(acessorios);
-      const objquantidadP = this.validatepassageiros(quantidadePassageiros);
+      const objcor = this.validateobj(cor,'cor');
+      const objmodelo = this.validateobj(modelo,'modelo');
+      const objano = this.validateobj(ano,'ano');
+      const objacessorios = this.validateobj(acessorios,'acessorios');
+      const objquantidadP = this.validateobj(quantidadePassageiros,'quantidadePassageiros');
       const obj = Object.assign({},objcor,objmodelo,objano,objacessorios, objquantidadP);
       data = await CarRepository.find(obj);
     }
     return data;
   }
-  validatecor(cor){
-    if(typeof cor === 'undefined'){
-      const objcor = {};
-      return objcor;
+  validateobj(obj,type){
+    if(typeof obj === 'undefined'){
+      const objobj = {};
+      return objobj;
     }else{
-      const objcor2 = {cor:cor};
-      return objcor2;
+      const objobj2 = {[type]:obj};
+      return objobj2;
     }
   }
-  validatemodelo(modelo){
-    if(typeof modelo === 'undefined'){
-      const objmodelo = {};
-      return objmodelo;
-    }else{
-      const objmodelo2 = {modelo:modelo};
-      return objmodelo2;
-    }
-  }
-  validateano(ano){
-    if(typeof ano === 'undefined'){
-      const objano = {};
-      return objano;
-    }else{
-      const objano2 = {ano:ano};
-      return objano2;
-    }
-  }
-  validateacessorios(acessorios){
-    if(typeof acessorios === 'undefined'){
-      const objacessorios = {};
-      return objacessorios;
-    }else{
-      const objacessorios2 = {acessorios:acessorios};
-      return objacessorios2;
-    }
-  } 
-  validatepassageiros(passageiros){
-    if(typeof passageiros === 'undefined'){
-      const objpassageiros = {};
-      return objpassageiros;
-    }else{
-      const objpassageiros2 = {passageiros:passageiros};
-      return objpassageiros2;
-    }
-  } 
   
 }
 module.exports = new CarService;

@@ -57,16 +57,9 @@ class CarController{
   }
   async find(req,res){
     try {
-      const cor1 = req.query.cor;
-      const modelo1 = req.query.modelo;
-      const ano1 = req.query.ano;
-      const acessorios1 = req.query.acessorios;
-      const quantidadePassageiros1 = req.query.quantidadePassageiros;
-      const data = await CarService.find(cor1,modelo1,ano1,acessorios1,quantidadePassageiros1);
-      return res.status(200).json({
-        'veiculos':data
-        
-      });
+      const {cor,modelo,ano,acessorios,quantidadePassageiros} = req.query;
+      const data = await CarService.find(cor,modelo,ano,acessorios,quantidadePassageiros);
+      return res.status(200).json(data);
       
     } catch (error) {
       return res.status(400).json({
@@ -82,7 +75,7 @@ class CarController{
   async delete(req,res){
     const id = req.params.car_id;
     try {
-      const Car = await CarService.findIdP(id);
+      const Car = await CarService.findId(id);
       if(Car === null){
         res.status(404).json({
           'message': 'bad request',
@@ -111,7 +104,7 @@ class CarController{
     const id = req.params.car_id;
     const newData = req.body;
     try {
-      const Car = await CarService.findIdP(id);
+      const Car = await CarService.findId(id);
       if(Car === null){
         res.status(404).json({
           'message': 'bad request',

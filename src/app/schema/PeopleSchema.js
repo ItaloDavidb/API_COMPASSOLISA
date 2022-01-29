@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
+const ENUM = require('../helper/ENUM');
 const PeopleSchema = mongoose.Schema({
   nome: {
     type:String,
@@ -19,7 +20,7 @@ const PeopleSchema = mongoose.Schema({
   },
   habilitado:{
     type:String,
-    enum:['sim','não']
+    enum: ENUM.habilitado
   },
 },{ versionKey: false });
 PeopleSchema.plugin(mongoosePaginate);
