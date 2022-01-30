@@ -4,6 +4,7 @@ const ValidationDelet= require('../app/validation/people/delete');
 const ValidationGet = require('../app/validation/people/get');
 module.exports = (server, routes, prefix = '/api/v1/people') => {
   routes.post('/',Validation,PeopleController.create);
+  routes.post('/authenticate',PeopleController.authenticate);
   routes.get('/',ValidationGet ,PeopleController.find);
   routes.get('/:people_id',ValidationDelet,ValidationGet,PeopleController.findId );
   routes.put('/:people_id', Validation,ValidationDelet,PeopleController.update);

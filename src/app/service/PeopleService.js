@@ -2,12 +2,15 @@ const PeopleRepository = require('../repository/PeopleRepository');
 class PeopleService{
   async create(payload){ 
     const Cpfvalidate = await PeopleRepository.find({cpf:payload.cpf});
-    if( Cpfvalidate.docs.length > 0){
+    if( Cpfvalidate.Pessoas.length > 0){
       throw new Error('Cpf already exists');
     }
     const data = await PeopleRepository.create(payload);
     return data;
   }   
+  async finda(payload){
+    return await PeopleRepository.finda(payload);
+  }
   async findId(id) {
     return PeopleRepository.findId(id);
   }

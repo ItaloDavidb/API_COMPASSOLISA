@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
 const ENUM = require('../helper/ENUM');
+const bcrypt = require('bcrypt');
 const PeopleSchema = mongoose.Schema({
   nome: {
     type:String,
@@ -16,13 +17,19 @@ const PeopleSchema = mongoose.Schema({
   },
   senha:{
     type:String,
-    required:true
+    required:true,
+    select:false
   },
   habilitado:{
     type:String,
     enum: ENUM.habilitado
   },
 },{ versionKey: false });
+PeopleSchema.pre('save',async function(next){
+  const hash = await bcrypt.hash(this.senha,10);
+  this.senha= hash;
+  next();
+});
 PeopleSchema.plugin(mongoosePaginate);
 const People = mongoose.model('People', PeopleSchema);
 module.exports = People;

@@ -1,23 +1,32 @@
 const PeopleService = require('../service/PeopleService');
-
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const auth = require('../config/auth.json');
+const NotFound = require('../../errors/NotFound');
 class PeopleController{
+  async authenticate(req,res){
+    const {email,senha} = req.body;
+    const data = await PeopleService.finda({email});
+    if(!data)
+      return res.status(400).send({error:'Resgistration Failed'});
+    if(!await bcrypt.compare(senha,data.senha))
+      return res.status(400).send({error:'Invalid Password'});
+    data.senha = undefined;
+
+    const token = jwt.sign({id:data.id}, auth.secret,{
+      expiresIn:86400
+    });
+    res.send({data,token});  
+  }
   async create(req,res){
     try {
       const data = await PeopleService.create(req.body);
-      return res.status(201).json({
-        'pessoas':{
-          '_id': data._id,
-          'nome': data.nome,
-          'cpf': data.cpf,
-          'ano':data.ano,
-          'data_nascimento':data.data_nascimento,
-          'senha':data.senha,
-          'habilitado':data.habilitado
-        }});
+      data.senha = undefined;
+      return res.status(201).json(data);
     } catch (error) {
       return res.status(400).json({
         'message': 'bad request',
-        'details':[
+        'details':[ 
           {
             'message':error.message,
           }
@@ -30,16 +39,8 @@ class PeopleController{
     try {
       
       const data = await PeopleService.findId({_id:id});
-      if(data === null){
-        return res.status(404).json({
-          'message': 'bad request',
-          'details':[
-            {
-              'message':'ID not Found',
-            }
-          ]
-        });
-      }
+      if(data === null) 
+        throw new NotFound(`ID: ${id}`);
       
       return res.status(200).json({
         'veiculos':data
@@ -60,17 +61,8 @@ class PeopleController{
     const id = req.params.people_id;
     try {
       const people = await PeopleService.findId(id);
-      console.log(people);
-      if(people === null){
-        res.status(404).json({
-          'message': 'bad request',
-          'details':[
-            {
-              'message':'Id not Found',
-            }
-          ]
-        });
-      }
+      if(people === null) 
+        throw new NotFound(`ID: ${id}`);
       await PeopleService.delete(id);
       res.status(204).end();
 
@@ -90,16 +82,8 @@ class PeopleController{
     const newData = req.body;
     try {
       const people = await PeopleService.findId(id);
-      if(people === null){
-        res.status(404).json({
-          'message': 'bad request',
-          'details':[
-            {
-              'message':'Id not Found',
-            }
-          ]
-        });
-      }
+      if(people === null) 
+        throw new NotFound(`ID: ${id}`);
       const updatedPeople = await PeopleService.update(id, newData);
       res.status(200).json(updatedPeople);
     } catch (error) {
