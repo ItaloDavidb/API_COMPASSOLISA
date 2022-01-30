@@ -11,7 +11,6 @@
  <a href="#-tecnologias">Tecnologias</a> • 
  <a href="#-agradecimentos">Agradecimentos</a> • 
  <a href="#-autores">Autores</a> • 
- <a href="#-licença">Licença</a>
 </p>
 
 <h4 align="center">
