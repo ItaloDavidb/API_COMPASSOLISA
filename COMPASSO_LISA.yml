@@ -10,32 +10,7 @@ servers:
 - url: http://localhost:3000/api/v1
   description: Api Veiculos
 paths:
-  /autenticate:
-            post:
-              summary: Autentica uma Pessoa
-              responses: 
-                  201:
-                    description: Sucesso
-                    content:
-                      application/json:
-                        schema:
-                          type: object
-                          properties: 
-                            _id:
-                              type: string
-                            nome:
-                              type: string
-                            cpf: 
-                              type: string
-                            email:
-                              type: string
-                            habilitado:
-                              type: string
-                            token: 
-                              type: string
-                
-              
-              
+
   /car:
     get:
       summary: Retorna todos os Veiculos.
@@ -414,3 +389,36 @@ paths:
           content:
             application/json:
               example: "Body error"
+  /people/authenticate:
+            post:
+              summary: Autentica uma Pessoa
+              requestBody:
+                  content:
+                    application/json:
+                      schema:
+                        type: object
+                        properties:
+                          email:
+                            type: string
+                          senha:
+                            type: string
+              responses: 
+                  201:
+                    description: Sucesso
+                    content:
+                      application/json:
+                        schema:
+                          type: object
+                          properties: 
+                            _id:
+                              type: string
+                            nome:
+                              type: string
+                            cpf: 
+                              type: string
+                            email:
+                              type: string
+                            habilitado:
+                              type: string
+                            token: 
+                              type: string
