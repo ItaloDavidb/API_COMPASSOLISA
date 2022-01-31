@@ -332,3 +332,85 @@ paths:
           content:
             application/json: 
               example: "not found"
+  /people/{people_id}:
+    put:
+      summary: Atualiza uma Pessoa.
+      parameters:
+      - name: people_id
+        in: path
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                        nome:
+                          type: string
+                        people_id:
+                          type: string
+                        cpf: 
+                          type: string
+                        data_nascimento:
+                          type: number
+                        email:
+                          type: string
+                        senha:
+                          type: string
+                        habilitado:
+                          type: string
+      responses: 
+        200:
+          description: Atualizado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                        nome:
+                          type: string
+                        people_id:
+                          type: string
+                        cpf: 
+                          type: string
+                        data_nascimento:
+                          type: number
+                        email:
+                          type: string
+                        senha:
+                          type: string
+                        habilitado:
+                          type: string
+        404:
+          description: Pessoa não encontrada
+          content:
+            application/json: 
+              example: "não foi possivel cadastrar o funcionário"
+        400:
+          description: Body Error
+          content:
+            application/json:
+              example: "Body error"
+    delete:
+      summary: Atualiza um Veiculo.
+      parameters:
+      - name: people_id
+        in: path
+        schema:
+          type: string
+        required: true
+      responses: 
+        204:
+          description: Excluido com sucesso
+        404:
+          description: Pessoa não encontrada
+          content:
+            application/json: 
+              example: "não foi possivel cadastrar o Veiculo"
+        400:
+          description: Body Error
+          content:
+            application/json:
+              example: "Body error"
