@@ -199,7 +199,7 @@ $ npm start
 ### REQUEST - (POST) 
 > Para Autenticar uma Pessoa.
 
-> Use: POST - `http://localhost:3000/api/v1/people/autenticate`
+> Use: POST - `http://localhost:3000/api/v1/people/authenticate`
 
 ```json
 {
