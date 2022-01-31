@@ -240,3 +240,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 # 👨‍💻Autor
 
   [Italo Alves](https://www.linkedin.com/in/italo-alves-01457a1a6/)
+# 📝Licença
+
+Esse repositório está licenciado pela **MIT LICENSE**. Para mais informações detalhadas, leia o arquivo [LICENSE](./LICENSE) contido nesse repositório.
