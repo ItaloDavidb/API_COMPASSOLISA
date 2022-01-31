@@ -8,8 +8,8 @@ class PeopleService{
     const data = await PeopleRepository.create(payload);
     return data;
   }   
-  async finda(payload){
-    return await PeopleRepository.finda(payload);
+  async findAuth(payload){
+    return await PeopleRepository.findAuth(payload);
   }
   async findId(id) {
     return PeopleRepository.findId(id);

@@ -4,7 +4,7 @@ class PeopleRepository {
   async create(payload){
     return PeopleSchema.create(payload);
   }
-  async finda(payload){
+  async findAuth(payload){
     return await PeopleSchema.findOne(payload).select('+senha');
 
   }

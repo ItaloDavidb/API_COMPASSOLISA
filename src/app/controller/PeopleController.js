@@ -6,7 +6,7 @@ const NotFound = require('../../errors/NotFound');
 class PeopleController{
   async authenticate(req,res){
     const {email,senha} = req.body;
-    const data = await PeopleService.finda({email});
+    const data = await PeopleService.findAuth({email});
     if(!data)
       return res.status(400).send({error:'Resgistration Failed'});
     if(!await bcrypt.compare(senha,data.senha))
