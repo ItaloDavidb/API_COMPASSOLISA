@@ -1,4 +1,5 @@
 const PeopleRepository = require('../repository/PeopleRepository');
+const NotFound = require('../../errors/NotFound');
 class PeopleService{
   async create(payload){ 
     const Cpfvalidate = await PeopleRepository.find({cpf:payload.cpf});
@@ -22,24 +23,10 @@ class PeopleService{
     return data;
   }
  
-  async find(nome,cpf,data_nascimento,email,habilitado){
-    let data = {};
-    if(typeof nome === 'undefined' && 
-    typeof cpf === 'undefined' &&
-    typeof data_nascimento === 'undefined' &&
-    typeof email === 'undefined' &&
-    typeof habilitado === 'undefined'
-    ){
-      data = await PeopleRepository.find();
-    }else{
-      const objnome = this.validateobj(nome,'nome');
-      const objcpf = this.validateobj(cpf,'cpf');
-      const objdata_nascimento = this.validateobj(data_nascimento,'data_nascimento');
-      const objemail = this.validateobj(email,'email');
-      const objquantidadP = this.validateobj(habilitado,'habilitado');
-      const obj = Object.assign({},objnome,objcpf,objdata_nascimento,objemail, objquantidadP);
-      data = await PeopleRepository.find(obj);
-    }
+  async find(query){
+    let object = query;
+    const data = await PeopleRepository.find(object);
+    if(data.Pessoas.length === 0)throw new NotFound('Object');
     return data;
   }
   validateobj(obj,type){

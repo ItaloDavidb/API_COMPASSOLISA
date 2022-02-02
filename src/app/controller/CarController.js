@@ -4,15 +4,7 @@ class CarController{
   async create(req,res){
     try {
       const data = await CarService.create(req.body);
-      return res.status(201).json({
-        'veiculos':{
-          '_id': data._id,
-          'modelo': data.modelo,
-          'cor': data.cor,
-          'ano':data.ano,
-          'acessorios':data.acessorios,
-          'quantidadePassageiros':data.quantidadePassageiros   
-        }});
+      return res.status(201).json(data);
     } catch (error) {
       return res.status(400).json({
         'message': 'bad request',
@@ -48,12 +40,11 @@ class CarController{
     }
   }
   async find(req,res){
-    try {
-      const {cor,modelo,ano,acessorios,quantidadePassageiros} = req.query;
-      const data = await CarService.find(cor,modelo,ano,acessorios,quantidadePassageiros);
-      return res.status(200).json(data);
-      
-    } catch (error) {
+    try{
+      const {... query} = req.query;
+      const data = await CarService.find(query);
+      return res.status(200).json(data);  
+    }catch(error){
       return res.status(400).json({
         'message': 'bad request',
         'details':[

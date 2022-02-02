@@ -98,12 +98,11 @@ class PeopleController{
     }
   }
   async find(req,res){
-    try {
-      const {nome,cpf,data_nascimento,email,habilitado} = req.query;
-      const data = await PeopleService.find(nome,cpf,data_nascimento,email,habilitado);
-      return res.status(200).json(data);
-      
-    } catch (error) {
+    try{
+      const {... query} = req.query;
+      const data = await PeopleService.find(query);
+      return res.status(200).json(data);  
+    }catch(error){
       return res.status(400).json({
         'message': 'bad request',
         'details':[

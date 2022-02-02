@@ -1,4 +1,5 @@
 const CarRepository = require('../repository/CarRepository');
+const NotFound = require('../../errors/NotFound');
 
 class CarService{
   async create(payload){
@@ -19,24 +20,10 @@ class CarService{
     return data;
   }
  
-  async find(cor,modelo,ano,acessorios,quantidadePassageiros){
-    let data = {};
-    if(typeof cor === 'undefined' && 
-    typeof modelo === 'undefined' &&
-    typeof ano === 'undefined' &&
-    typeof acessorios === 'undefined' &&
-    typeof quantidadePassageiros === 'undefined'
-    ){
-      data = await CarRepository.find();
-    }else{
-      const objcor = this.validateobj(cor,'cor');
-      const objmodelo = this.validateobj(modelo,'modelo');
-      const objano = this.validateobj(ano,'ano');
-      const objacessorios = this.validateobj(acessorios,'acessorios');
-      const objquantidadP = this.validateobj(quantidadePassageiros,'quantidadePassageiros');
-      const obj = Object.assign({},objcor,objmodelo,objano,objacessorios, objquantidadP);
-      data = await CarRepository.find(obj);
-    }
+  async find(query){
+    let object = query;
+    const data = await CarRepository.find(object);
+    if(data.Veiculos.length === 0)throw new NotFound('Object');
     return data;
   }
   validateobj(obj,type){
