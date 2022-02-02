@@ -17,7 +17,7 @@ module.exports = async (req,res,next) => {
       data_nascimento: Joi.date().format('DD/MM/YYYY').raw().max('now').greater('1-1-1900').required()
         .custom((value,help)=>{
           if(isOver18(new Date(value)) === false){
-            return help.message('You need tobe ove 18 years old');
+            return help.message('You need to be ove 18 years old');
           }
         }).required(),
       email: Joi.string().trim().email({ minDomainSegments: 2, tlds: { allow:ENUM.email } }).required(),

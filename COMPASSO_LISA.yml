@@ -60,7 +60,12 @@ paths:
                         ano: 
                           type: string
                         acessorios:
-                          type: string
+                          type: array
+                          items: 
+                            type: object
+                            properties:
+                              descricao:
+                                type: string
                         quantidadePassageiros: 
                           type: number
         404:
@@ -83,7 +88,12 @@ paths:
                 ano:
                   type: string
                 acessorios:
-                  type: string
+                          type: array
+                          items: 
+                            type: object
+                            properties:
+                              descricao:
+                                type: string
                 quantidadePassageiros: 
                           type: number
       responses: 
@@ -103,7 +113,12 @@ paths:
                   ano:
                     type: string
                   acessorios:
-                    type: string
+                          type: array
+                          items: 
+                            type: object
+                            properties:
+                              descricao:
+                                type: string
                   quantidadePassageiros: 
                     type: number
 
@@ -137,7 +152,12 @@ paths:
                   ano:
                     type: string
                   acessorios:
-                    type: string
+                          type: array
+                          items: 
+                            type: object
+                            properties:
+                              descricao:
+                                type: string
                   quantidadePassageiros: 
                     type: number
       responses: 
@@ -157,7 +177,12 @@ paths:
                   ano:
                     type: string
                   acessorios:
-                    type: string
+                          type: array
+                          items: 
+                            type: object
+                            properties:
+                              descricao:
+                                type: string
                   quantidadePassageiros: 
                     type: number
         404:
