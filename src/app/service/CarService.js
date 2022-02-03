@@ -21,20 +21,10 @@ class CarService{
   }
  
   async find(query){
-    let object = query;
-    const data = await CarRepository.find(object);
-    if(data.Veiculos.length === 0)throw new NotFound('Object');
+    let payload = query;
+    const data = await CarRepository.find(payload);
+    if(data.Veiculos.length === 0)throw new NotFound(payload.query);
     return data;
   }
-  validateobj(obj,type){
-    if(typeof obj === 'undefined'){
-      const objobj = {};
-      return objobj;
-    }else{
-      const objobj2 = {[type]:obj};
-      return objobj2;
-    }
-  }
-  
 }
 module.exports = new CarService;

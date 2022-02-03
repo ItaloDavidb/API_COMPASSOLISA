@@ -38,12 +38,12 @@ class PeopleController{
     const id = req.params.people_id;
     try {
       
-      const data = await PeopleService.findId({_id:id});
-      if(data === null) 
-        throw new NotFound(`ID: ${id}`);
+      const people = await PeopleService.findId({_id:id});
+      if(people === null) 
+        res.status(404).send(NotFound(`ID: ${id}`));
       
       return res.status(200).json({
-        'veiculos':data
+        'veiculos':people
       });
       
     } catch (error) {
@@ -62,7 +62,7 @@ class PeopleController{
     try {
       const people = await PeopleService.findId(id);
       if(people === null) 
-        throw new NotFound(`ID: ${id}`);
+        res.status(404).send(NotFound(`ID: ${id}`));
       await PeopleService.delete(id);
       res.status(204).end();
 
@@ -83,7 +83,7 @@ class PeopleController{
     try {
       const people = await PeopleService.findId(id);
       if(people === null) 
-        throw new NotFound(`ID: ${id}`);
+        res.status(404).send(NotFound(`ID: ${id}`));
       const updatedPeople = await PeopleService.update(id, newData);
       res.status(200).json(updatedPeople);
     } catch (error) {

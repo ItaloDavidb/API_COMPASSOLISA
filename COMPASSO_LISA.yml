@@ -48,7 +48,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  employee:
+                  veiculos:
                     type: array
                     items:
                       type: object

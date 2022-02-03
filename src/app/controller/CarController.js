@@ -22,7 +22,7 @@ class CarController{
       
       const Car = await CarService.findId({_id:id});
       if(Car === null) 
-        throw new NotFound(`ID: ${id}`);
+        res.status(404).send(NotFound(`ID: ${id}`));
       
       return res.status(200).json({
         'veiculos':Car
@@ -60,7 +60,7 @@ class CarController{
     try {
       const Car = await CarService.findId(id);
       if(Car === null) 
-        throw new NotFound(`ID: ${id}`);
+        res.status(404).send(NotFound(`ID: ${id}`));
       await CarService.delete(id);
       res.status(204).end();
 
@@ -81,7 +81,7 @@ class CarController{
     try {
       const Car = await CarService.findId(id);
       if(Car === null) 
-        throw new NotFound(`ID: ${id}`);
+        res.status(404).send(NotFound(`ID: ${id}`));
       
       
       const updatedCar = await CarService.update(id, newData);

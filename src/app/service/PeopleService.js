@@ -24,19 +24,10 @@ class PeopleService{
   }
  
   async find(query){
-    let object = query;
-    const data = await PeopleRepository.find(object);
-    if(data.Pessoas.length === 0)throw new NotFound('Object');
+    let payload = query;
+    const data = await PeopleRepository.find(payload);
+    if(data.Pessoas.length === 0)throw new NotFound({payload});
     return data;
-  }
-  validateobj(obj,type){
-    if(typeof obj === 'undefined'){
-      const objobj = {};
-      return objobj;
-    }else{
-      const objobj2 = {[type]:obj};
-      return objobj2;
-    }
   }
 }
 module.exports = new PeopleService;
