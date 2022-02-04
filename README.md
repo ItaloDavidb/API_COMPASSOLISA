@@ -145,7 +145,7 @@ $ npm start
 ### REQUEST - (POST) 
 > Para cadastrar uma Pessoa.
 
-> Use: POST - `http://localhost:3000/api/v1/peoaple`
+> Use: POST - `http://localhost:3000/api/v1/people`
 
 ```json
 {
@@ -164,7 +164,7 @@ $ npm start
 ### REQUEST - (GET) 
 > Para listar Pessoas.
 
-> Use: GET - `http://localhost:3000/api/v1/peoaple`
+> Use: GET - `http://localhost:3000/api/v1/people`
 
 ```json
 {
@@ -179,7 +179,7 @@ $ npm start
 ### REQUEST - (PUT) 
 > Para atualizar uma Pessoa.
 
-> Use: PUT - `http://localhost:3000/api/v1/peoaple/:people_id`
+> Use: PUT - `http://localhost:3000/api/v1/people/:people_id`
 
 ```json
 {
@@ -194,7 +194,7 @@ $ npm start
 ### REQUEST - (DELETE) 
 > Para excluir uma Pessoa.
 
-> Use: DELETE - `http://localhost:3000/api/v1/peoaple/:people_id``
+> Use: DELETE - `http://localhost:3000/api/v1/people/:people_id``
 
 ### REQUEST - (POST) 
 > Para Autenticar uma Pessoa.
@@ -222,7 +222,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [MongoDb](https://www.mongodb.com)
 
 # 🦸Agradecimentos
- Obrigado por incentivar, por cada conselho ,"puxão de orelha" e por estar sempre por perto dando apoio e tirando todas nossas dúvidas!!
+ Obrigado por incentivar, por cada conselho ,"puxão de orelha" e por estar sempre por perto dando apoio e tirando todas as dúvidas de Todo o PG!!
 
 <table>
     <tr>
