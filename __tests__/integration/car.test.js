@@ -8,9 +8,13 @@ const car = {};
 describe('Test Feature to Car', () => {
   let connection;
   let db;
+  beforeEach(async () => {
+    await db.collection('COMPASSO').deleteMany({});
+  });
   beforeAll(async () => {
     connection = await MongoClient.connect(global.__MONGO_URI__, {
       useNewUrlParser: true,
+      useUnifiedTopology: true,
     });
     db = await connection.db(global.__MONGO_DB_NAME__);
     car.p0 = await CarService.create({
