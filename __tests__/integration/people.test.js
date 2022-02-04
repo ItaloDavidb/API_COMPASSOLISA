@@ -15,7 +15,7 @@ describe('Test Feature to People', () => {
     db = await connection.db(global.__MONGO_DB_NAME__);
     person.p0 = await PeopleService.create({
       nome: 'italo',
-      cpf: '501.925.100-37',
+      cpf: '382.731.100-44',
       data_nascimento:'27/03/2001',
       email:'italodavid3@hotmail.com',
       senha: '1234567',
@@ -56,7 +56,7 @@ describe('Test Feature to People', () => {
       .post('/api/v1/people')
       .send({
         nome: 'salvesnaldo',
-        cpf: '469.429.340-03',
+        cpf: '810.900.440-70',
         data_nascimento:'27/03/2001',
         email:'italodavid1@hotmail.com',
         senha: '1234567',
@@ -71,14 +71,14 @@ describe('Test Feature to People', () => {
       .put(`/api/v1/people/${person.p0._id}`)
       .send({
         nome: 'italo',
-        cpf: '397.608.580-45',
+        cpf: '382.731.100-44',
         data_nascimento:'27/03/2001',
-        email:'italodavid@hotmail.com',
+        email:'italodavid4@hotmail.com',
         senha: '1234567',
         habilitado: 'sim'
       });
     expect(res.statusCode).toBe(200);
-    expect(res.body.cpf).toBe('397.608.580-45');
+    expect(res.body.cpf).toBe('382.731.100-44');
   });
 
 
