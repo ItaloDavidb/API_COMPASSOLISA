@@ -1,5 +1,4 @@
 const supertest = require('supertest');
-const mongoose = require('mongoose');
 const {MongoClient} = require('mongodb');
 const App = require('../../src/app');
 const CarService = require('../../src/app/service/CarService');
