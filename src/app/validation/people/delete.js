@@ -9,12 +9,8 @@ module.exports = async (req,res,next) =>{
     return next();
   } catch (error) {
     return res.status(400).json({
-      'message': 'bad request',
-      'details':[
-        {
-          'message':'The id must be Type of ObjectId',
-        }
-      ]
+      'description': error.details[0].path[0],
+      'name':error.message
     });
               
   }
