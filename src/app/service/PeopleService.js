@@ -3,8 +3,12 @@ const NotFound = require('../../errors/NotFound');
 class PeopleService{
   async create(payload){ 
     const Cpfvalidate = await PeopleRepository.find({cpf:payload.cpf});
+    const Emailvalidate = await PeopleRepository.find({email:payload.email});
     if( Cpfvalidate.Pessoas.length > 0){
       throw new Error('Cpf already exists');
+    }
+    if( Emailvalidate.Pessoas.length > 0){
+      throw new Error('Email already exists');
     }
     const data = await PeopleRepository.create(payload);
     return data;
