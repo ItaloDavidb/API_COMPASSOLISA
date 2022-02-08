@@ -1,21 +1,11 @@
 const supertest = require('supertest');
-const {MongoClient} = require('mongodb');
-const App = require('../../src/app');
+const mongoose = require('mongoose');
+const App = require('../app/app');
 const CarService = require('../../src/app/service/CarService');
 const car = {};
 
 describe('Test Feature to Car', () => {
-  let connection;
-  let db;
-  beforeEach(async () => {
-    await db.collection('COMPASSO').deleteMany({});
-  });
   beforeAll(async () => {
-    connection = await MongoClient.connect(global.__MONGO_URI__, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    db = await connection.db(global.__MONGO_DB_NAME__);
     car.p0 = await CarService.create({
       modelo: 'carro massa',
       cor: 'rosa',
@@ -29,7 +19,7 @@ describe('Test Feature to Car', () => {
   });
 
   afterAll(async () => {
-    await connection.close();
+    await mongoose.connection.close();
   });
 
   it('Route to Get', async ()=> {
