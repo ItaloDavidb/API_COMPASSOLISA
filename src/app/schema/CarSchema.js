@@ -16,12 +16,16 @@ const CarSchema = mongoose.Schema({
   acessorios:[{
     type:Array,
     required:true,
-    unique:true}],
+    unique:true,
+  }],
   quantidadePassageiros:{
     type:Number,
     required:true
-  }
+  },
+  __v: { type: Number, select: false}
+  
 },{ versionKey: false });
 CarSchema.plugin(mongoosePaginate);
+
 const Car = mongoose.model('Car', CarSchema);
 module.exports = Car;
