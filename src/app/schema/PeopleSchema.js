@@ -24,6 +24,7 @@ const PeopleSchema = mongoose.Schema({
     type:String,
     enum: ENUM.habilitado
   },
+  __v: { type: Number, select: false}
 },{ versionKey: false });
 PeopleSchema.pre('save',async function(next){
   const hash = await bcrypt.hash(this.senha,10);
