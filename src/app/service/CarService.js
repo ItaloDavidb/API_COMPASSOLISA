@@ -26,5 +26,10 @@ class CarService{
     if(data.Veiculos.length === 0)throw new NotFound(payload.query);
     return data;
   }
+  async patch (car_id, acessorios_id, payload) {
+    const result = await CarRepository.patch(car_id, acessorios_id, payload);
+	
+    return result;
+  }
 }
 module.exports = new CarService;

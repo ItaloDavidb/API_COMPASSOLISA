@@ -34,6 +34,14 @@ class CarRepository {
   async update(id, payload) {
     await CarSchema.updateOne({ car_id: id }, payload);
     return CarSchema.findOne({ car_id: id });
-  }    
-}
+  }
+  async patch(car_id, acessorios_id, payload) {
+    return CarSchema.findByIdAndUpdate(
+      car_id, 
+      { $set: {'acessorios.$[outer].descricao': payload.descricao} },
+      { arrayFilters: [{'outer._id': acessorios_id }] }
+    );
+  }
+}    
+
 module.exports = new CarRepository;

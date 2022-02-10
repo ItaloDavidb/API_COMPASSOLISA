@@ -97,6 +97,24 @@ class CarController{
       });
     }
   }
+  async patch(req,res){
+    const {car_id,acessorios_id} = req.params;
+    const newData = req.body;
+    try {
+      const data = await CarService.patch(car_id, acessorios_id, newData);
+
+      res.status(200).json(data);
+    } catch (error) {
+      return res.status(400).json({
+        'message': 'bad request',
+        'details':[
+          {
+            'message':error.message,
+          }
+        ]
+      });
+    }
+  }
 }
 
 module.exports = new CarController;
