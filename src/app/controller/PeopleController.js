@@ -12,6 +12,8 @@ class PeopleController{
     if(!await bcrypt.compare(senha,data.senha))
       return res.status(400).send({error:'Invalid Password'});
     data.senha = undefined;
+    data.nome = undefined;
+    data.cpf = undefined;
 
     const token = jwt.sign({id:data.id}, auth.secret,{
       expiresIn:86400

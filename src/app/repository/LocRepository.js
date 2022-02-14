@@ -1,6 +1,6 @@
 const LocSchema = require('../schema/LocSchema');
 
-class CarRepository {
+class LocRepository {
   async create(payload){
     return LocSchema.create(payload);
   }
@@ -24,5 +24,16 @@ class CarRepository {
     };
     return LocSchema.paginate(payload,options,{});
   }
+  async findId(id) {
+    return LocSchema.findOne({ _id: id });
+  }
+  async delete(id) {
+    return LocSchema.deleteOne({ _id: id });
+  }
+  async update(id, payload) {
+    await LocSchema.updateOne({ car_id: id }, payload);
+    return LocSchema.findOne({ car_id: id });
+  }
+  
 }
-module.exports = new CarRepository;
+module.exports = new LocRepository;

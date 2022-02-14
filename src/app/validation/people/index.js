@@ -5,7 +5,7 @@ const  {isOver18, isValidCpf} = require('../../helper/Validations');
 const ENUM = require('../../helper/ENUM');
 module.exports = async (req,res,next) => {
   try{
-    const carSchema = Joi.object({
+    const PeopleSchema = Joi.object({
       nome: Joi.string().min(3).max(30).trim().required(),
       cpf: Joi.string().min(14).max(14).trim().custom((value,help)=>{
         if(isValidCpf(value) === false){
@@ -24,7 +24,7 @@ module.exports = async (req,res,next) => {
       senha: Joi.string().trim().min(6).required(),
       habilitado: Joi.string().trim().valid(...Object.values(ENUM.habilitado)).required()
     });
-    const {error} = await carSchema.validate(req.body,{abortEarly:true});
+    const {error} = await PeopleSchema.validate(req.body,{abortEarly:true});
     if(error) throw error;
     return next();
   }catch(error){
