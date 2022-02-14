@@ -30,7 +30,7 @@ class PeopleService{
   async find(query){
     let payload = query;
     const data = await PeopleRepository.find(payload);
-    if(data.Pessoas.length === 0)throw new NotFound({payload});
+    if(data.Pessoas.length === 0)throw new NotFound(payload.query);
     return data;
   }
 }

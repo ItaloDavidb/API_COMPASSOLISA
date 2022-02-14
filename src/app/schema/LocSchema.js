@@ -22,11 +22,26 @@ const LocSchema = mongoose.Schema({
       type:Number,
       required:true,
     },
+    logradouro: {
+      type: String
+    },
+    complemento: {
+      type: String
+    },
+    bairro: { 
+      type: String
+    },
+    localidade: {
+      type: String
+    },
+    uf: {
+      type: String
+    }, 
     isFilial:{
       type:Boolean,
       required:true,
       default:false
-    }
+    },_id: { select: false}
   }],
   __v: { type: Number, select: false}
   

@@ -1,8 +1,8 @@
 const CarSchema = require('../schema/CarSchema');
 
 class CarRepository {
-  async create(payload){
-    return CarSchema.create(payload);
+  async create(payload,data){
+    return CarSchema.create(payload,data);
   }
   async find(payload){
     const myCustomLabels = {
