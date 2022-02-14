@@ -9,7 +9,7 @@ module.exports = async (req,res,next) => {
       nome: Joi.string().min(3).max(30).trim().required(),
       cpf: Joi.string().min(14).max(14).trim().custom((value,help)=>{
         if(isValidCpf(value) === false){
-          return help.message(`'Invalid Cpf ${value}`);
+          return help.message(`Invalid Cpf ${value}`);
         }else{
           return true;
         }

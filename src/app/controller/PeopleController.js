@@ -27,7 +27,7 @@ class PeopleController{
       return res.status(201).json(data);
     } catch (error) {
       return res.status(400).json({
-        'message': 'bad request',
+        'message': error,
         'details':[ 
           {
             'message':error.message,
