@@ -5,10 +5,11 @@ class PeopleService{
     const Cpfvalidate = await PeopleRepository.find({cpf:payload.cpf});
     const Emailvalidate = await PeopleRepository.find({email:payload.email});
     if( Cpfvalidate.Pessoas.length > 0){
-      throw new Error('Cpf already exists');
+      throw new Error('Conflict: Cpf already exists'
+      );
     }
     if( Emailvalidate.Pessoas.length > 0){
-      throw new Error('Email already exists');
+      throw new Error('Conflict: Email already exists');
     }
     const data = await PeopleRepository.create(payload);
     return data;
