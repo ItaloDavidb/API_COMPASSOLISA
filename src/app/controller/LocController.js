@@ -7,7 +7,37 @@ class LocController {
       const data = await LocService.create(payload);
       return res.status(201).json(data);
     } catch (error) {
-      return error;
+      return res.status(400).json({
+        'message': 'bad request',
+        'details':[
+          {
+            'message':error.message,
+          }
+        ]
+      });
+    }
+  }
+  async findId(req,res){
+    const id = req.params.loc_id;
+    try {
+      
+      const Loc = await LocService.findId({_id:id});
+      if(Loc === null) 
+        res.status(404).send(new NotFound(`ID: ${id}`));
+      
+      return res.status(200).json({
+        'Locadoras':Loc
+      });
+      
+    } catch (error) {
+      return res.status(400).json({
+        'message': 'bad request',
+        'details':[
+          {
+            'message':error.message,
+          }
+        ]
+      });
     }
   }
   async find(req,res){
@@ -43,8 +73,8 @@ class LocController {
   async delete(req,res){
     const id = req.params.loc_id;
     try {
-      const Car = await LocService.findId(id);
-      if(Car === null) 
+      const Loc = await LocService.findId(id);
+      if(Loc === null) 
         res.status(404).send(new NotFound(`ID: ${id}`));
       await LocService.delete(id);
       res.status(204).end();

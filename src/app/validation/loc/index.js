@@ -18,9 +18,9 @@ module.exports = async (req, res, next) => {
         }
       }).required(),
       atividades: Joi.string().min(5).max(40).trim().required(),
-      endereco: Joi.array().items(endereco).min(1).unique('cep'),
+      endereco: Joi.array().items(endereco).min(1).unique('cep').unique('isFilial').required(),
     });
-    const { error } = await schema.validate(req.body, { abortEarl: true });
+    const { error } = await schema.validate(req.body, { abortEarly: true });
     if (error) throw error;
     return next();
   } catch (error) {
