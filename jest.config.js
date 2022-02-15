@@ -3,6 +3,6 @@ module.exports = {
   clearMocks: true,
   coverageProvider: 'v8',
   testMatch: [
-	  '**/__tests__/**/*.test.js?(x)',
+    '**/__tests__/**/*.test.js?(x)',
   ],
 };
