@@ -1,8 +1,8 @@
-const Joi = require('joi');
+const Joi = require('joi-oid');
 module.exports = async (req,res,next) =>{
   try {
     const validation = Joi.object({
-      car_id: Joi.string().min(24).max(24).trim().required()
+      car_id: Joi.objectId()
     });
     const {error} = await validation.validate(req.params,{abortEarly:true});
     if(error) throw error;
