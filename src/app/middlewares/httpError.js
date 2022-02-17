@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const HttpError = require('../../errors/Error/http');
 
-module.exports = function (err, req, res, next) {
+module.exports = (err, req, res, next) => {
   if (err instanceof HttpError) {
     res.status(err.statusCode).json({
       message: err.name,
