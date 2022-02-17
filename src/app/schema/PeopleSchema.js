@@ -17,6 +17,10 @@ const PeopleSchema = mongoose.Schema(
       type: String,
       required: true
     },
+    data_nascimento: {
+      type: String,
+      requerid: true
+    },
     senha: {
       type: String,
       required: true,

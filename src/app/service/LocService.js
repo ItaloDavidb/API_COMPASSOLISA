@@ -11,7 +11,7 @@ const { isValidCNPJ } = require('../helper/Validations');
 class LocService {
   async create(payload, data) {
     if (isValidCNPJ(payload.cnpj) === false) {
-      throw new BadRequest({ details: 'Invalid CNPJ' });
+      throw new BadRequest('Invalid CNPJ');
     }
     const CNPJValidate = await LocRepository.find({ cnpj: payload.cnpj });
     if (CNPJValidate.Locadoras.length > 0) {
@@ -48,12 +48,32 @@ class LocService {
   }
 
   async delete(id) {
+    const data = LocRepository.findId(id);
+    if ((await data) === null) throw new NotFound(id._id);
     return LocRepository.delete(id);
   }
 
   async update(id, payload) {
-    const data = await LocRepository.update(id, payload);
-    return data;
+    const data = LocRepository.findId(id);
+    if ((await data) === null) throw new NotFound(id._id);
+    if (isValidCNPJ(payload.cnpj) === false) {
+      throw new BadRequest('Invalid CNPJ');
+    }
+    let j = 0;
+    while (j < payload.endereco.length) {
+      const NCep = payload.endereco;
+      const newAdress = NCep[j];
+      const data = await CepFinder.finder(newAdress.cep);
+      const { cep, logradouro, complemento, bairro, localidade, uf } = data;
+      newAdress.cep = cep;
+      newAdress.logradouro = logradouro;
+      newAdress.complemento = complemento;
+      newAdress.bairro = bairro;
+      newAdress.localidade = localidade;
+      newAdress.uf = uf;
+      j++;
+    }
+    return LocRepository.update(id, payload);
   }
 }
 module.exports = new LocService();

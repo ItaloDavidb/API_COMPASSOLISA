@@ -1,9 +1,19 @@
 const PeopleRepository = require('../repository/PeopleRepository');
 const Conflict = require('../../errors/Conflict');
 const NotFound = require('../../errors/Error/notfound');
+const BadRequest = require('../../errors/Error/request');
+const { isOver18, isValidCpf } = require('../helper/Validations');
 
 class PeopleService {
   async create(payload) {
+    if (isValidCpf(payload.cpf) === false) {
+      throw new BadRequest('Invalid CPF');
+    }
+    const SliceYear = payload.data_nascimento;
+    const year = SliceYear.substr(6, 4);
+    if (isOver18(new Date(year)) === false) {
+      throw new BadRequest('You need to be more than 18 years old');
+    }
     const Cpfvalidate = await PeopleRepository.find({ cpf: payload.cpf });
     const Emailvalidate = await PeopleRepository.find({ email: payload.email });
     if (Cpfvalidate.Pessoas.length > 0) {
@@ -27,12 +37,23 @@ class PeopleService {
   }
 
   async delete(id) {
+    const data = PeopleRepository.findId(id);
+    if ((await data) === null) throw new NotFound(id._id);
     return PeopleRepository.delete(id);
   }
 
   async update(id, payload) {
-    const data = await PeopleRepository.update(id, payload);
-    return data;
+    const data = PeopleRepository.findId(id);
+    if ((await data) === null) throw new NotFound(id._id);
+    if (isValidCpf(payload.cpf) === false) {
+      throw new BadRequest('Invalid CPF');
+    }
+    const SliceYear = payload.data_nascimento;
+    const year = SliceYear.substr(6, 4);
+    if (isOver18(new Date(year)) === false) {
+      throw new BadRequest('You need to be more than 18 years old');
+    }
+    return PeopleRepository.update(id, payload);
   }
 
   async find(query) {

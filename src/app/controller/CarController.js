@@ -34,7 +34,7 @@ class CarController {
       const data = await CarService.find(query);
       return res.status(200).json(data);
     } catch (error) {
-      return res.status(error.statusCode).json({
+      return res.status(500).json({
         description: error.description,
         name: error.message
       });

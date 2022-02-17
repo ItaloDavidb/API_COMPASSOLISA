@@ -37,6 +37,13 @@ function isOver18(dateOfBirth) {
   return dateOfBirth <= date18YrsAgo;
 }
 function isValidCNPJ(cnpj) {
+  cnpj = cnpj.replace(/[^\d]+/g, '');
+
+  if (cnpj == '') return false;
+
+  if (cnpj.length != 14) return false;
+
+  // Elimina CNPJs invalidos conhecidos
   if (
     cnpj == '00000000000000' ||
     cnpj == '11111111111111' ||
@@ -51,34 +58,29 @@ function isValidCNPJ(cnpj) {
   )
     return false;
 
-  let size = cnpj.length - 2;
-  let numbers = cnpj.substring(0, size);
-  const digits = cnpj.substring(size);
-  let sum = 0;
-  let pos = size - 7;
-
-  for (let i = size; i >= 1; i--) {
-    sum += numbers.charAt(size - i) * pos--;
+  // Valida DVs
+  tamanho = cnpj.length - 2;
+  numeros = cnpj.substring(0, tamanho);
+  digitos = cnpj.substring(tamanho);
+  soma = 0;
+  pos = tamanho - 7;
+  for (i = tamanho; i >= 1; i--) {
+    soma += numeros.charAt(tamanho - i) * pos--;
     if (pos < 2) pos = 9;
   }
+  resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+  if (resultado != digitos.charAt(0)) return false;
 
-  let result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
-
-  if (result != digits.charAt(0)) return false;
-
-  size += 1;
-  numbers = cnpj.substring(0, size);
-  sum = 0;
-  pos = size - 7;
-
-  for (let i = size; i >= 1; i--) {
-    sum += numbers.charAt(size - i) * pos--;
+  tamanho += 1;
+  numeros = cnpj.substring(0, tamanho);
+  soma = 0;
+  pos = tamanho - 7;
+  for (i = tamanho; i >= 1; i--) {
+    soma += numeros.charAt(tamanho - i) * pos--;
     if (pos < 2) pos = 9;
   }
-
-  result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
-
-  if (result != digits.charAt(1)) return false;
+  resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+  if (resultado != digitos.charAt(1)) return false;
 
   return true;
 }

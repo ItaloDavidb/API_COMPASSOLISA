@@ -14,17 +14,19 @@ class CarService {
   }
 
   async delete(id) {
+    const data = CarRepository.findId(id);
+    if ((await data) === null) throw new NotFound(id._id);
     return CarRepository.delete(id);
   }
 
   async update(id, payload) {
-    const data = await CarRepository.update(id, payload);
-    return data;
+    const data = CarRepository.findId(id);
+    if ((await data) === null) throw new NotFound(id._id);
+    return CarRepository.update(id, payload);
   }
 
   async find(query) {
     const data = await CarRepository.find(query);
-    if (data.Pessoas.length === 0) throw new NotFound(query);
     return data;
   }
 
