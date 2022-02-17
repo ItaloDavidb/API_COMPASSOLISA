@@ -1,14 +1,12 @@
 const mongoose = require('mongoose');
 
 class Database {
-  constructor () {
+  constructor() {
     this.connect();
   }
 
-  connect () {
-    return mongoose.connect('mongodb://127.0.0.1:27017/__test__')
-      .catch((err) => console.log(err));
-
+  connect() {
+    return mongoose.connect('mongodb://127.0.0.1:27017/__test__').catch((err) => console.log(err));
   }
 }
 

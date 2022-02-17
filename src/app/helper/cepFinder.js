@@ -6,4 +6,4 @@ class CepFinder {
     return result.data;
   }
 }
-module.exports = new CepFinder;
+module.exports = new CepFinder();

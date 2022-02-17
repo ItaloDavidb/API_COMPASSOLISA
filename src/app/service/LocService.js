@@ -1,9 +1,23 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-shadow */
+/* eslint-disable no-await-in-loop */
 const LocRepository = require('../repository/LocRepository');
-const NotFound = require('../../errors/NotFound');
 const CepFinder = require('../helper/cepFinder');
-class LocService{
-  async create(payload, data){
-    let  j = 0;
+const NotFound = require('../../errors/Error/notfound');
+const Conflict = require('../../errors/Conflict');
+const BadRequest = require('../../errors/Error/request');
+const { isValidCNPJ } = require('../helper/Validations');
+
+class LocService {
+  async create(payload, data) {
+    if (isValidCNPJ(payload.cnpj) === false) {
+      throw new BadRequest({ details: 'Invalid CNPJ' });
+    }
+    const CNPJValidate = await LocRepository.find({ cnpj: payload.cnpj });
+    if (CNPJValidate.Locadoras.length > 0) {
+      throw new Conflict(payload.cnpj);
+    }
+    let j = 0;
     while (j < payload.endereco.length) {
       const NCep = payload.endereco;
       const newAdress = NCep[j];
@@ -14,30 +28,32 @@ class LocService{
       newAdress.complemento = complemento;
       newAdress.bairro = bairro;
       newAdress.localidade = localidade;
-      newAdress.uf = uf;   
+      newAdress.uf = uf;
       j++;
     }
     const result = await LocRepository.create(payload, data);
     return result;
   }
-  async find(query){
-    let payload = query;
-    const data = await LocRepository.find(payload);
-    if(data.Locadoras.length === 0)throw new NotFound(payload.query);
+
+  async find(query) {
+    const data = await LocRepository.find(query);
+    if (data.Locadoras.length === 0) throw new NotFound(query);
     return data;
   }
+
   async findId(id) {
-    const data =  LocRepository.findId(id);
-    if(typeof data === 'undefined') ()=> {throw new Error('Id not Found');};
+    const data = LocRepository.findId(id);
+    if ((await data) === null) throw new NotFound(id._id);
     return data;
   }
+
   async delete(id) {
     return LocRepository.delete(id);
   }
+
   async update(id, payload) {
     const data = await LocRepository.update(id, payload);
     return data;
   }
 }
-module.exports = new LocService;
-  
+module.exports = new LocService();

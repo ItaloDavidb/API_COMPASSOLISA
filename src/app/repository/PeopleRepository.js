@@ -1,14 +1,16 @@
 const PeopleSchema = require('../schema/PeopleSchema');
 
 class PeopleRepository {
-  async create(payload){
+  async create(payload) {
     return PeopleSchema.create(payload);
   }
-  async findAuth(payload){
-    return await PeopleSchema.findOne(payload).select('+senha');
 
+  async findAuth(payload) {
+    // eslint-disable-next-line no-return-await
+    return await PeopleSchema.findOne(payload).select('+senha');
   }
-  async find(payload){
+
+  async find(payload) {
     const myCustomLabels = {
       totalDocs: 'total',
       docs: 'Pessoas',
@@ -26,11 +28,13 @@ class PeopleRepository {
       limit: 100,
       customLabels: myCustomLabels
     };
-    return PeopleSchema.paginate(payload,options,{});
+    return PeopleSchema.paginate(payload, options, {});
   }
+
   async delete(id) {
     return PeopleSchema.deleteOne({ _id: id });
   }
+
   async findId(id) {
     return PeopleSchema.findOne({ _id: id });
   }
@@ -38,6 +42,6 @@ class PeopleRepository {
   async update(id, payload) {
     await PeopleSchema.updateOne({ people_id: id }, payload);
     return PeopleSchema.findOne({ people_id: id });
-  }    
+  }
 }
-module.exports = new PeopleRepository; 
+module.exports = new PeopleRepository();
