@@ -1,6 +1,7 @@
 const express = require('express');
 const router = require('../../src/routes');
 require('./infra/database/mongo');
+
 class App {
   constructor() {
     this.server = express();

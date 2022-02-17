@@ -1,10 +1,11 @@
 const LocSchema = require('../schema/LocSchema');
 
 class LocRepository {
-  async create(payload){
+  async create(payload) {
     return LocSchema.create(payload);
   }
-  async find(payload){
+
+  async find(payload) {
     const myCustomLabels = {
       totalDocs: 'total',
       docs: 'Locadoras',
@@ -22,18 +23,20 @@ class LocRepository {
       limit: 100,
       customLabels: myCustomLabels
     };
-    return LocSchema.paginate(payload,options,{});
+    return LocSchema.paginate(payload, options, {});
   }
+
   async findId(id) {
     return LocSchema.findOne({ _id: id });
   }
+
   async delete(id) {
     return LocSchema.deleteOne({ _id: id });
   }
+
   async update(id, payload) {
     await LocSchema.updateOne({ car_id: id }, payload);
     return LocSchema.findOne({ car_id: id });
   }
-  
 }
-module.exports = new LocRepository;
+module.exports = new LocRepository();
