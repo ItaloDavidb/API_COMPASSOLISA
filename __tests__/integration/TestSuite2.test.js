@@ -60,7 +60,7 @@ describe('Test Feature to Rental', () => {
       .post('/api/v1/rental')
       .send({
         nome: 'Localiza aquele-la',
-        cnpj: '03630216000129',
+        cnpj: '85144459000111',
         atividades: 'Localizar carros',
         endereco: [
           {
@@ -96,7 +96,7 @@ describe('Test Feature to Rental', () => {
       .post('/api/v1/rental')
       .send({
         nome: 'Localiza aquele-la',
-        cnpj: '03630216000129',
+        cnpj: '85144459000111',
         atividades: 'Localizar carros',
         endereco: [
           {
