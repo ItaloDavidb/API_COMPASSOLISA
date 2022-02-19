@@ -544,7 +544,7 @@
                   },
                   "senha": {
                     "type": "string",
-                    "example": 445060
+                    "example": 123456
                   },
                   "habilitado": {
                     "type": "string",
