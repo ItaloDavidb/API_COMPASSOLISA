@@ -1,5 +1,8 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const PeopleRepository = require('../repository/PeopleRepository');
 const Conflict = require('../../errors/Conflict');
+const auth = require('../config/auth.json');
 const NotFound = require('../../errors/Error/notfound');
 const BadRequest = require('../../errors/Error/request');
 const { isOver18, isValidCpf } = require('../helper/Validations');
@@ -26,8 +29,19 @@ class PeopleService {
     return data;
   }
 
-  async findAuth(payload) {
-    return PeopleRepository.findAuth(payload);
+  async authenticate(payload) {
+    const { email, senha } = payload;
+    const data = await PeopleRepository.findAuth({ email });
+    if (!data) throw new BadRequest('Login Failed');
+    if (!(await bcrypt.compare(senha, data.senha))) throw new BadRequest('Invalid Password');
+    data.senha = undefined;
+    data.nome = undefined;
+    data.cpf = undefined;
+
+    const token = jwt.sign({ id: data.id }, auth.secret, {
+      expiresIn: 86400
+    });
+    return { data, token };
   }
 
   async findId(id) {

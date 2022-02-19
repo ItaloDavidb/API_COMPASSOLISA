@@ -1,6 +1,5 @@
 const JoiImport = require('joi');
 const DateExtension = require('@joi/date');
-const { isValidCpf } = require('../../helper/Validations');
 const ENUM = require('../../helper/ENUM');
 
 const Joi = JoiImport.extend(DateExtension);
@@ -8,16 +7,7 @@ module.exports = async (req, res, next) => {
   try {
     const carSchema = Joi.object({
       nome: Joi.string().min(3).max(30).trim(),
-      cpf: Joi.string()
-        .min(14)
-        .max(14)
-        .trim()
-        .custom((value, help) => {
-          if (isValidCpf(value) === false) {
-            return help.message('Invalid Cpf');
-          }
-          return true;
-        }),
+      cpf: Joi.string().min(14).max(14).trim(),
       data_nascimento: Joi.date().format('DD/MM/YYYY').raw().max('now').greater('1-1-1900'),
       email: Joi.string()
         .trim()

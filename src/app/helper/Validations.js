@@ -1,3 +1,8 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-undef */
+/* eslint-disable no-param-reassign */
+/* eslint-disable radix */
+/* eslint-disable eqeqeq */
 function isValidCpf(cpf) {
   if (typeof cpf !== 'string') return false;
   cpf = cpf.replace(/[\s.-]*/gim, '');

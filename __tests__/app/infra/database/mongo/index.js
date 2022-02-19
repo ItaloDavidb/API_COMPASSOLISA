@@ -6,7 +6,7 @@ class Database {
   }
 
   connect() {
-    return mongoose.connect('mongodb://127.0.0.1:27017/__test__').catch((err) => console.log(err));
+    return mongoose.connect('mongodb://127.0.0.1:27017/__tests__').catch((err) => console.log(err));
   }
 }
 

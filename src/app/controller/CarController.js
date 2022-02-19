@@ -18,7 +18,7 @@ class CarController {
     try {
       const Car = await CarService.findId({ _id: id });
       return res.status(200).json({
-        veiculos: Car
+        Veiculos: Car
       });
     } catch (error) {
       return res.status(error.statusCode).json({
