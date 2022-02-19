@@ -11,17 +11,11 @@
 <p align="center">
 
  <a href="#-sobre-o-projeto">Sobre</a> •
-
- <a href="">Documentação</a> •
-
+ <a href="https://compassolisas.herokuapp.com/api/v1/docs/">Documentação</a> •
  <a href="#-como-usar-a-API">Como usar a API</a> •
-
  <a href="#-teste-das-rotas">Funcionalidades</a> • 
-
  <a href="#-tecnologias">Tecnologias</a> •
-
  <a href="#-agradecimentos">Agradecimentos</a> •
-
  <a href="#-autores">Autores</a> •
 
 </p>
