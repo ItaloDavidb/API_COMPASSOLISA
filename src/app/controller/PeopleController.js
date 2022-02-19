@@ -1,23 +1,18 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const PeopleService = require('../service/PeopleService');
-const auth = require('../config/auth.json');
+
 // const NotFound = require('../../errors/NotFound');
 
 class PeopleController {
   async authenticate(req, res) {
-    const { email, senha } = req.body;
-    const data = await PeopleService.findAuth({ email });
-    if (!data) return res.status(400).send({ error: 'Resgistration Failed' });
-    if (!(await bcrypt.compare(senha, data.senha))) return res.status(400).send({ error: 'Invalid Password' });
-    data.senha = undefined;
-    data.nome = undefined;
-    data.cpf = undefined;
-
-    const token = jwt.sign({ id: data.id }, auth.secret, {
-      expiresIn: 86400
-    });
-    return res.send({ data, token });
+    try {
+      const data = await PeopleService.authenticate(req.body);
+      return res.status(200).json(data);
+    } catch (error) {
+      return res.status(error.statusCode).json({
+        description: error.description,
+        name: error.message
+      });
+    }
   }
 
   async create(req, res) {
@@ -38,7 +33,7 @@ class PeopleController {
     try {
       const people = await PeopleService.findId({ _id: id });
       return res.status(200).json({
-        veiculos: people
+        Pessoas: people
       });
     } catch (error) {
       return res.status(error.statusCode).json({
