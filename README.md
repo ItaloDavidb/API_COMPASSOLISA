@@ -123,8 +123,34 @@ $ npm start
   
 
 > Sugestões para testar as rotas
+>> Lembrar que para se consumir da Rota de Veículos é necessário antes se Autenticar na rota de Autenticação e utilizar o Token Bearer 
+
+### REQUEST - (POST)
+
+> Para Autenticar uma Pessoa.
 
   
+
+> Use: POST - `http://localhost:3000/api/v1/people/authenticate`
+
+  
+
+```json
+
+{
+
+  
+
+"email": "joazinho@email.com",
+
+"senha": "123456"
+
+  
+
+}
+
+```
+
 
 ### REQUEST - (POST)
 
@@ -419,31 +445,6 @@ $ npm start
 
   
 
-### REQUEST - (POST)
-
-> Para Autenticar uma Pessoa.
-
-  
-
-> Use: POST - `http://localhost:3000/api/v1/people/authenticate`
-
-  
-
-```json
-
-{
-
-  
-
-"email": "joazinho@email.com",
-
-"senha": "123456"
-
-  
-
-}
-
-```
 
 ### REQUEST - (POST)
 
