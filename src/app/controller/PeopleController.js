@@ -76,7 +76,7 @@ class PeopleController {
       const data = await PeopleService.find(query);
       return res.status(200).json(data);
     } catch (error) {
-      return res.status(error.statusCode).json({
+      return res.status(400).json({
         description: error.description,
         name: error.message
       });
