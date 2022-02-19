@@ -1,9 +1,10 @@
-const CarService = require('../service/CarService');
+const LocService = require('../service/LocService');
 
-class CarController {
+class LocController {
   async create(req, res) {
+    const payload = req.body;
     try {
-      const data = await CarService.create(req.body);
+      const data = await LocService.create(payload);
       return res.status(201).json(data);
     } catch (error) {
       return res.status(error.statusCode).json({
@@ -14,11 +15,11 @@ class CarController {
   }
 
   async findId(req, res) {
-    const id = req.params.car_id;
+    const id = req.params.loc_id;
     try {
-      const Car = await CarService.findId({ _id: id });
+      const Loc = await LocService.findId({ _id: id });
       return res.status(200).json({
-        Veiculos: Car
+        Locadoras: Loc
       });
     } catch (error) {
       return res.status(error.statusCode).json({
@@ -31,21 +32,8 @@ class CarController {
   async find(req, res) {
     try {
       const { ...query } = req.query;
-      const data = await CarService.find(query);
+      const data = await LocService.find(query);
       return res.status(200).json(data);
-    } catch (error) {
-      return res.status(500).json({
-        description: error.description,
-        name: error.message
-      });
-    }
-  }
-
-  async delete(req, res) {
-    const id = req.params.car_id;
-    try {
-      await CarService.delete(id);
-      return res.status(204).end();
     } catch (error) {
       return res.status(error.statusCode).json({
         description: error.description,
@@ -55,11 +43,11 @@ class CarController {
   }
 
   async update(req, res) {
-    const id = req.params.car_id;
+    const id = req.params.loc_id;
     const newData = req.body;
     try {
-      const updatedCar = await CarService.update(id, newData);
-      return res.status(200).json(updatedCar);
+      const updatedloc = await LocService.update(id, newData);
+      return res.status(200).json(updatedloc);
     } catch (error) {
       return res.status(error.statusCode).json({
         description: error.description,
@@ -68,13 +56,11 @@ class CarController {
     }
   }
 
-  async patch(req, res) {
-    const { car_id, acessorios_id } = req.params;
-    const newData = req.body;
+  async delete(req, res) {
+    const id = req.params.loc_id;
     try {
-      const data = await CarService.patch(car_id, acessorios_id, newData);
-
-      return res.status(200).json(data);
+      await LocService.delete(id);
+      return res.status(204).end();
     } catch (error) {
       return res.status(error.statusCode).json({
         description: error.description,
@@ -84,4 +70,4 @@ class CarController {
   }
 }
 
-module.exports = new CarController();
+module.exports = new LocController();

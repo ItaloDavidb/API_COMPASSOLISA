@@ -3,7 +3,7 @@ const Joi = require('joi');
 module.exports = async (req, res, next) => {
   try {
     const validation = Joi.object({
-      car_id: Joi.string()
+      loc_id: Joi.string()
         .pattern(/^[0-9a-fA-F]{24}$/)
         .min(24)
         .max(24)

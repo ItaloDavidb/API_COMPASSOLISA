@@ -1,12 +1,11 @@
 const JoiImport = require('joi');
 const DateExtension = require('@joi/date');
 
-
 const Joi = JoiImport.extend(DateExtension);
 
-module.exports = async (req,res,next) => {
-  try{
-    let acessorios = Joi.object().keys({
+module.exports = async (req, res, next) => {
+  try {
+    const acessorios = Joi.object().keys({
       descricao: Joi.string().trim().min(1).required()
     });
     const carSchema = Joi.object({
@@ -16,17 +15,13 @@ module.exports = async (req,res,next) => {
       acessorios: Joi.array().items(acessorios).min(1).unique('descricao'),
       quantidadePassageiros: Joi.number().required()
     });
-    const {error} = await carSchema.validate(req.body,{abortEarly:true});
-    if(error) throw error;
+    const { error } = await carSchema.validate(req.body, { abortEarly: true });
+    if (error) throw error;
     return next();
-  }catch(error){
+  } catch (error) {
     return res.status(400).json({
-      'message': 'bad request',
-      'details':[
-        {
-          'message':error.message,
-        }
-      ]
+      description: error.details[0].path[0],
+      name: error.message
     });
   }
 };
