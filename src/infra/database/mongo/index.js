@@ -8,7 +8,7 @@ class Database {
 
   connect() {
     return mongoose
-      .connect(process.env.DB_PATHDB)
+      .connect(process.env.DATABASE)
       .then(console.log('Connected to DB'))
       .catch((err) => console.log(err));
   }
