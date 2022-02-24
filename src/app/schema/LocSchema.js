@@ -54,5 +54,5 @@ const LocSchema = mongoose.Schema(
 );
 LocSchema.plugin(mongoosePaginate);
 
-const Car = mongoose.model('Locadora', LocSchema);
-module.exports = Car;
+const Locadora = mongoose.model('Locadora', LocSchema);
+module.exports = Locadora;
